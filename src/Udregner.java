@@ -13,14 +13,16 @@ public class Udregner {
     private static Map<String, Map<String, BigInteger>> ds = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
-    
+        readInput();
+        // compute wanted functions on data structure
+        // save data to file "results" 
     }
 
     private static void saveData(){
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("resultat"));
         } catch (IOException e) {
-            System.out.println("kunne ikke finde filen til resultater6");
+            System.out.println("kunne ikke finde filen til resultater");
             e.printStackTrace();
         }        
     }
@@ -29,9 +31,9 @@ public class Udregner {
         BigInteger price = BigInteger.valueOf(Long.parseLong(amount));
         Map<String, BigInteger> expenseMap = new HashMap<>();
         expenseMap.put(expense, price);
-        if(ds.get(key).get(expense) == null){
+        if(ds.get(key).get(expense) == null){ // first time expense
             ds.put(key, expenseMap);
-        } else {
+        } else {                              // add to existing expense  
             BigInteger sum = ds.get(key).get(expense).add(price);
             expenseMap.put(expense, sum);
             ds.put(key, expenseMap);
@@ -47,9 +49,9 @@ public class Udregner {
             while ((line = br.readLine()) != null){
                 String expense, amount, key;
                 String[] input = line.split(splitBy); 
-                expense = input[0].replace(" ", "");
-                amount = input[1].replace(" ", "");
-                key = input[2].replace(" ", "");
+                expense = input[0].trim();
+                amount = input[1].trim();
+                key = input[2].trim();
                 mapDataToDS(expense, amount, key);
             }
             br.close();
